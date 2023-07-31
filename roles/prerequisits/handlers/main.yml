@@ -1,0 +1,5 @@
+---
+# handlers file for roles/prerequisits
+- name: Copy the new public keys to github and gitlab
+  ansible.builtin.pause:
+    prompt: Make sure you have copied the updated ssh keys

@@ -1,0 +1,10 @@
+---
+  - hosts: localhost
+    connection: local
+
+    collections:
+      - stoeps13/gnome_desktop_ansible
+
+    tasks:
+      - import_role:
+          name: ../roles/console

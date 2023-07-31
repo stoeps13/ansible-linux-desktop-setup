@@ -1,0 +1,5 @@
+- name: Install ssh - Ubuntu/Debian
+  ansible.builtin.package:
+    name: openssh-client
+  when:
+    - ansible_os_family == 'Debian'

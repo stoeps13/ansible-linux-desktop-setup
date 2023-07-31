@@ -1,0 +1,10 @@
+---
+- name: Install prereq for json_query
+  ansible.builtin.shell: yay -Syu --noconfirm --needed python-jmespath
+  register: result
+  changed_when: 'result.stdout is not search(" there is nothing to do")'
+
+- name: Install mkdocs
+  ansible.builtin.shell: yay -Syu --noconfirm --needed mkdocs mkdocs-material mkdocs-section-index
+  register: result
+  changed_when: 'result.stdout is not search(" there is nothing to do")'

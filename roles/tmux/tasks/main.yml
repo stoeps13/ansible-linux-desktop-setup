@@ -1,0 +1,37 @@
+---
+# tasks file for tmux
+
+# Create config directory
+- name: Create tmux config directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/tmux"
+    state: directory
+    mode: '0755'
+
+# Copy config file to config directory
+- name: Link config with stow
+  ansible.builtin.shell: stow tmux
+  args:
+    chdir: "{{ ansible_env.HOME }}/.dotfiles"
+  register: result
+  changed_when: 'result.stderr is search("LINK: ")'
+
+# Install tpm
+# Package name should be equal in all distros
+- name: Install tmux
+  ansible.builtin.package:
+    name: tmux
+    state: present
+    update_cache: true
+  become: true
+
+- name: Create tpm directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.tmux/plugins"
+    state: directory
+    mode: '0755'
+
+- name: Install tpm from git
+  ansible.builtin.git:
+    repo: 'https://github.com/tmux-plugins/tpm'
+    dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"

@@ -1,0 +1,44 @@
+---
+# tasks file for roles/neovim
+#
+- name: Install prerequisits for neovim
+  community.general.pacman:
+    update_cache: true
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - fd
+    - ripgrep
+    - yaml-language-server
+    - bash-language-server
+  when:
+    - ansible_os_family == 'Archlinux'
+
+- name: Install neovim
+  ansible.builtin.package:
+    name: neovim
+    state: present
+  become: true
+
+- name: Link config with stow
+  ansible.builtin.shell: stow neovim
+  args:
+    chdir: "{{ ansible_env.HOME }}/.dotfiles"
+  register: result
+  changed_when: 'result.stderr is search("LINK: ")'
+
+#- name: use nvim for vi
+#  community.general.alternatives:
+#    name: vi
+#    path: /usr/bin/nvim
+#
+#- name: use nvim for vim
+#  community.general.alternatives:
+#    name: vim
+#    path: /usr/bin/nvim
+#
+#- name: use nvim for editor
+#  community.general.alternatives:
+#    name: editor
+#    path: /usr/bin/nvim

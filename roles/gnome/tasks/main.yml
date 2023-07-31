@@ -1,0 +1,27 @@
+---
+# tasks file for roles/gnome
+# Copy desktop wallpaper
+- name: Copy desktop wallpaper to pictures
+  ansible.builtin.copy:
+    src: jeremy-bishop-h7bQ8VEZtws-unsplash.jpg
+    dest: "{{ ansible_env.HOME}}/.local/share/backgrounds/wallpaper.jpg"
+
+# Activate wallpaper
+- name: Set wallpaper image
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "\"file://{{ ansible_env.HOME }}/.local/share/backgrounds/wallpaper.jpg\""
+- name: Set wallpaper image dark
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/picture-uri-dark"
+    value: "\"file://{{ ansible_env.HOME }}/.local/share/backgrounds/wallpaper.jpg\""
+
+- name: Activate wallpaper
+  community.general.dconf:
+    key: "/org/gnome/desktop/screensaver/picture-uri"
+    value: "\"file://{{ ansible_env.HOME }}/.local/share/backgrounds/wallpaper.jpg\""
+
+- name: Activate compose key, enable Euro sign on e and disable caps lock
+  community.general.dconf:
+    key: "/org/gnome/desktop/input-sources/xkb-options"
+    value: "['caps:none', 'eurosign:e', 'compose:ralt']"

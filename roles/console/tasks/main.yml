@@ -1,0 +1,67 @@
+---
+# tasks file for roles/console
+- name: Install prerequisits and tools
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - jq
+    - bat
+    - exa
+    - stow
+    - alacritty
+    - inotify-tools
+
+- name: Get Fira Code download url
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/tonsky/FiraCode/releases/latest
+    body_format: json
+  register: firacode
+
+- name: Echo
+  ansible.builtin.debug:
+    msg: "{{ firacode }}"
+    verbosity: 2
+
+- name: Debug ansible_os_family and distribution
+  ansible.builtin.debug:
+    msg: "Family: {{ ansible_os_family }}, Distribution: {{ ansible_facts['distribution'] }}"
+
+- name: Include ArchLinux related tasks
+  ansible.builtin.include_tasks: archlinux.yml
+  when:
+    - ansible_os_family == 'Archlinux'
+
+- name: Include Ubuntu related tasks
+  ansible.builtin.include_tasks: ubuntu.yml
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+
+- name: URL
+  ansible.builtin.set_fact:
+    firacode_download: "{{ firacode | json_query('json.assets[0].browser_download_url') }}"
+
+- name: Echo
+  ansible.builtin.debug:
+    msg: "{{ firacode_download }}"
+    verbosity: 2
+
+- name: Check if local fonts dir is present
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.local/share/fonts"
+    state: directory
+    mode: "0755"
+
+- name: Download Fira Code font and extract
+  ansible.builtin.unarchive:
+    src: "{{ firacode_download }}"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts"
+    remote_src: true
+
+- name: Stow alacritty config
+  ansible.builtin.shell: stow ssh
+  args:
+    chdir: "{{ ansible_env.HOME }}/.dotfiles"
+  register: result
+  changed_when: 'result.stderr is search("LINK: ")'

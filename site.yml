@@ -1,0 +1,22 @@
+---
+  - hosts: localhost
+    connection: local
+
+    collections:
+      - stoeps13/gnome_desktop_ansible
+
+    tasks:
+      - import_role:
+          name: prerequisits
+      - import_role:
+          name: tmux
+      - import_role:
+          name: neovim
+      - import_role:
+          name: gnome
+      - import_role:
+          name: console
+      - import_role:
+          name: firefox
+      - import_role:
+          name: latex

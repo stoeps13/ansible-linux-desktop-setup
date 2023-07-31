@@ -1,0 +1,6 @@
+---
+- name: Install ssh - Redhat/Fedora/CentOS
+  ansible.builtin.package:
+    name: openssh-clients
+  when:
+    - ansible_os_family == 'Redhat'

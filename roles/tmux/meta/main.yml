@@ -1,0 +1,8 @@
+galaxy_info:
+  author: Christoph Stoettner
+  description: Install and configure tmux (with stow)
+  license: GPL-2.0-or-later
+
+  min_ansible_version: "10"
+  galaxy_tags: []
+dependencies: []

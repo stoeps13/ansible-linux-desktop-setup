@@ -1,0 +1,14 @@
+---
+- name: Update all installed packages
+  community.general.pacman:
+    upgrade: true
+  become: true
+  when:
+    - ansible_os_family == "Archlinux"
+
+# Install openssh client
+- name: Install ssh - Archlinux
+  ansible.builtin.package:
+    name: openssh
+  when:
+    - ansible_os_family == 'Archlinux'

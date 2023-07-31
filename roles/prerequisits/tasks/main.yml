@@ -1,0 +1,73 @@
+---
+# tasks file for roles/prerequisits
+#
+- name: Install all needed packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - git
+    - stow
+    - fzf
+    - flameshot
+    - yay
+    - fd
+    - exa
+    - the_silver_searcher
+    - chromium
+
+- name: Include Archlinux related tasks
+  ansible.builtin.include_tasks: archlinux.yml
+  when:
+    - ansible_os_family == 'Archlinux'
+
+- name: Include Debian related tasks
+  ansible.builtin.include_tasks: debian.yml
+  when:
+    - ansible_os_family == 'Debian'
+
+- name: Include Redhat related tasks
+  ansible.builtin.include_tasks: redhat.yml
+  when:
+    - ansible_os_family == 'Redhat'
+
+# Copy config file to config directory
+- name: Link config with stow
+  ansible.builtin.shell: stow ssh
+  args:
+    chdir: "{{ ansible_env.HOME }}/.dotfiles"
+  register: result
+  changed_when: 'result.stderr is search("LINK: ")'
+
+# Create ssh keys
+- name: Generate an OpenSSH keypair with ed25519
+  community.crypto.openssh_keypair:
+    path: "{{ ansible_env.HOME }}/.ssh/{{ item }}.ed25519"
+    type: ed25519
+    size: 420
+    state: present
+    regenerate: full_idempotence
+    comment: "{{ system_name }}: SSH Key for {{ item }}"
+  notify: print_ssh
+  with_items:
+    - github
+    - gitlab
+
+- name: Clone dotfiles
+  ansible.builtin.git:
+    repo: "{{ __stow_dotfiles_gitrepo }}"
+    dest: "{{ ansible_env.HOME }}/.dotfiles"
+
+- name: Add to .zshrc
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK "
+    block: |
+      source /usr/share/fzf/key-bindings.zsh
+      source /usr/share/fzf/completion.zsh
+
+- name: Create ~/.local/bin folder
+  ansible.builtin.file:
+    state: directory
+    name: "{{ ansible_env.HOME }}/.local/bin"

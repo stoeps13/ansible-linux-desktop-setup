@@ -1,0 +1,5 @@
+---
+stow_dotfiles_gitrepo: 'git@github.com:stoeps13/linux-dotfiles.git'
+ansible_sudo_pass: 7UXRnCiimstR
+ssh_key_password: mgJ%E7V$
+

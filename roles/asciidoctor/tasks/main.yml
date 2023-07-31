@@ -1,0 +1,15 @@
+---
+# tasks file for roles/asciidoctor
+
+- name: Install Ruby Bundler
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - ruby-bundler
+    - ruby-asciidoctor-diagram-ditaamini
+    - ruby-asciidoctor-diagram-plantuml
+    - ruby-asciidoctor-diagram
+    - asciidoctor-pdf
+    - asciidoctor

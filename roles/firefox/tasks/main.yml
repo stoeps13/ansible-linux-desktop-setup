@@ -1,0 +1,29 @@
+---
+# tasks file for roles/firefox
+
+- name: Install firefox
+  ansible.builtin.package:
+    name: firefox
+
+- name: Create systemwide folder
+  ansible.builtin.file:
+    name: /etc/firefox
+    state: directory
+  become: true
+
+- name: Download user.js and copy system wide
+  ansible.builtin.uri:
+    url: https://raw.githubusercontent.com/yokoffing/Betterfox/main/user.js
+    dest: /etc/firefox/syspref.js
+  become: true
+
+- name: Add Smoothfox settings
+  ansible.builtin.blockinfile:
+    path: /etc/firefox/syspref.js
+    marker: "// {mark} ANSIBLE MANAGED BLOCK"
+    insertafter: '// Enter your scrolling prefs below this line:'
+    block: |
+      // recommended for 60hz+ displays
+      pref("general.smoothScroll", true);
+      pref("mousewheel.default.delta_multiplier_y", 275);
+  become: true
