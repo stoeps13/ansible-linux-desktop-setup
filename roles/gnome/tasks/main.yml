@@ -4,7 +4,7 @@
 - name: Copy desktop wallpaper to pictures
   ansible.builtin.copy:
     src: jeremy-bishop-h7bQ8VEZtws-unsplash.jpg
-    dest: "{{ ansible_env.HOME}}/.local/share/backgrounds/wallpaper.jpg"
+    dest: "{{ ansible_env.HOME }}/.local/share/backgrounds/wallpaper.jpg"
 
 # Activate wallpaper
 - name: Set wallpaper image
@@ -25,3 +25,15 @@
   community.general.dconf:
     key: "/org/gnome/desktop/input-sources/xkb-options"
     value: "['caps:none', 'eurosign:e', 'compose:ralt']"
+
+- name: Print key starts flameshot
+  block:
+    - community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
+        value: "Print"
+    - community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
+        value: "/usr/bin/flameshot gui"
+    - community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
+        value: "Flameshot"
