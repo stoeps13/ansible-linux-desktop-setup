@@ -22,7 +22,6 @@
   ansible.builtin.package:
     name: tmux
     state: present
-    update_cache: true
   become: true
 
 - name: Create tpm directory

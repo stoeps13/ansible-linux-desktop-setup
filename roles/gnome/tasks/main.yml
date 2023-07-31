@@ -28,12 +28,19 @@
 
 - name: Print key starts flameshot
   block:
-    - community.general.dconf:
+    - name: Add custom custom-keybindings
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+        value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0']"
+    - name: Add Value Print
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
-        value: "Print"
-    - community.general.dconf:
+        value: "'Print'"
+    - name: Set flameshot command
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
-        value: "/usr/bin/flameshot gui"
-    - community.general.dconf:
+        value: "'/usr/bin/flameshot gui'"
+    - name: Set Custom name
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
-        value: "Flameshot"
+        value: "'Flameshot'"
