@@ -1,0 +1,4 @@
+---
+- name: Install Firefox addons
+  ansible.builtin.shell: "rsync -Cavz {{ item }} {{ ansible_env.HOME }}/.mozilla/extensions/"
+  with_items: "{{ firefox_addons_url }}"

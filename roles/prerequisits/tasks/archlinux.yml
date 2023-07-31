@@ -9,6 +9,9 @@
 # Install openssh client
 - name: Install ssh - Archlinux
   ansible.builtin.package:
-    name: openssh
+    name: "{{ item }}"
+  with_items:
+    - openssh
+    - base-devel
   when:
     - ansible_os_family == 'Archlinux'

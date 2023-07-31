@@ -27,3 +27,6 @@
       pref("general.smoothScroll", true);
       pref("mousewheel.default.delta_multiplier_y", 275);
   become: true
+
+- name: Install addons
+  ansible.builtin.include_tasks: addons.yml
