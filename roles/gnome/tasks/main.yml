@@ -28,10 +28,10 @@
 
 - name: Print key starts flameshot
   block:
-    - name: Add custom custom-keybindings
+    - name: Remove default mapping
       community.general.dconf:
-        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
-        value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0']"
+        key: "/org/gnome/shell/keybindings/show-screenshot-ui"
+        value: "@as []"
     - name: Add Value Print
       community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
@@ -44,3 +44,16 @@
       community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
         value: "'Flameshot'"
+    - name: Add custom custom-keybindings
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+        value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+
+- name: Set
+  lineinfile:
+    path: "/etc/environment"
+    state: present
+    regexp: "^QT_QPA_PLATFORM="
+    line: "QT_QPA_PLATFORM=xcb flameshot"
+  become: true
+
