@@ -1,5 +1,10 @@
 ---
 # tasks file for roles/gnome
+- name: Install Ansible community.general
+  shell: ansible-galaxy collection install community.general
+  register: general_install
+  changed_when: 'general_install.stdout is not search("Nothing to do. All requested collections are already installed.")'
+
 # Copy desktop wallpaper
 - name: Copy desktop wallpaper to pictures
   ansible.builtin.copy:
@@ -49,11 +54,16 @@
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
         value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
 
-- name: Set
-  lineinfile:
-    path: "/etc/environment"
-    state: present
-    regexp: "^QT_QPA_PLATFORM="
-    line: "QT_QPA_PLATFORM=xcb flameshot"
-  become: true
+    - name: Set QT_QPA_PLATFORM in /etc/environment
+      lineinfile:
+        path: "/etc/environment"
+        state: present
+        regexp: "^QT_QPA_PLATFORM="
+        line: "QT_QPA_PLATFORM=xcb flameshot"
+      become: true
+
+- name: Disable night light
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled"
+    value: false
 
