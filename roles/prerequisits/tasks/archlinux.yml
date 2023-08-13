@@ -5,10 +5,18 @@
   become: true
 
 # Install openssh client
-- name: Install ssh - Archlinux
+- name: Install additional packages - Archlinux
   ansible.builtin.package:
     name: "{{ item }}"
   with_items:
     - base-devel
     - openssh
     - yay
+
+- name: Install additional packages with yay
+  ansible.builtin.command: "yay -Syu --noconfirm --needed {{ item }}"
+  with_items:
+    - maestral
+    - maestral-git
+    - ghq
+    - hugo
