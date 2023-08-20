@@ -15,11 +15,51 @@
   when:
     - ansible_os_family == 'Archlinux'
 
+- name: Install prerequisits for neovim
+  ansible.builtin.package:
+    update_cache: true
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - fd-find
+    - ripgrep
+    - npm
+  when:
+    - ansible_os_family == 'Debian'
+
+- name: Install Language Servers
+  community.general.npm:
+    name: "{{ item }}"
+    global: true
+  with_items:
+    - bash-language-server
+    - yaml-language-server
+  become: true
+
 - name: Install neovim
   ansible.builtin.package:
     name: neovim
     state: present
   become: true
+  when:
+    - ansible_os_family == 'Archlinux'
+
+- name: Download neovim latest
+  ansible.builtin.unarchive:
+    src: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    dest: /opt
+    remote_src: true
+  when:
+    - ansible_os_family == 'Debian'
+
+- name: Link neovim to /usr/bin
+  ansible.builtin.file:
+    state: link
+    src: /opt/nvim-linux64/bin/nvim
+    dest: /usr/bin/nvim
+  when:
+    - ansible_os_family == 'Debian'
 
 - name: Link config with stow
   ansible.builtin.shell: stow neovim

@@ -19,4 +19,5 @@
           name: gnome
       - import_role:
           name: console
-
+      - import_role:
+          name: asciidoctor
