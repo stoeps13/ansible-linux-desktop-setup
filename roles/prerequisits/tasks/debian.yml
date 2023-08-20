@@ -3,3 +3,12 @@
     name: openssh-client
   when:
     - ansible_os_family == 'Debian'
+
+- name: Install all needed packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - fd-find
+    - silversearcher-ag

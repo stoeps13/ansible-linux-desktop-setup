@@ -60,7 +60,7 @@
     remote_src: true
 
 - name: Stow alacritty config
-  ansible.builtin.shell: stow ssh
+  ansible.builtin.shell: stow alacritty
   args:
     chdir: "{{ ansible_env.HOME }}/.dotfiles"
   register: result

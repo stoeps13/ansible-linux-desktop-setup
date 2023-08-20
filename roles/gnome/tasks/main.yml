@@ -5,6 +5,12 @@
   register: general_install
   changed_when: 'general_install.stdout is not search("Nothing to do. All requested collections are already installed.")'
 
+- name: Create background image folder
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.local/share/backgrounds"
+    state: directory
+    mode: "0755"
+
 # Copy desktop wallpaper
 - name: Copy desktop wallpaper to pictures
   ansible.builtin.copy:
@@ -16,6 +22,7 @@
   community.general.dconf:
     key: "/org/gnome/desktop/background/picture-uri"
     value: "\"file://{{ ansible_env.HOME }}/.local/share/backgrounds/wallpaper.jpg\""
+
 - name: Set wallpaper image dark
   community.general.dconf:
     key: "/org/gnome/desktop/background/picture-uri-dark"

@@ -12,6 +12,8 @@
     - base-devel
     - openssh
     - yay
+    - fd
+    - the_silver_searcher
 
 - name: Install additional packages with yay
   ansible.builtin.command: "yay -Syu --noconfirm --needed {{ item }}"

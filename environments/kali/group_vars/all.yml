@@ -1,0 +1,177 @@
+---
+system_name: 'Kali'
+stow_dotfiles_gitrepo: 'git@github.com:stoeps13/linux-dotfiles.git'
+ansible_sudo_pass: 7UXRnCiimstR
+ssh_key_password: mgJ%E7V$
+
+firefox_profiles:
+  default-esr:
+    extensions:
+      - bitwarden-password-manager
+      - ublock-origin
+      - languagetool
+      - multi-account-containers
+    preferences:
+      accessibility.force_disabled: 1
+      app.normandy.api_url: ""
+      app.normandy.enabled: false
+      app.shield.optoutstudies.enabled: false
+      app.update.suppressPrompts: true
+      breakpad.reportURL: ""
+      browser.aboutwelcome.enabled: false
+      browser.bookmarks.openInTabClosesMenu: false
+      browser.cache.disk.enable: false
+      browser.cache.memory.max_entry_size: 153600
+      browser.compactmode.show: true
+      browser.contentblocking.category: "strict"
+      browser.crashReports.unsubmittedCheck.autoSubmit2: false
+      browser.discovery.enabled: false
+      browser.download.alwaysOpenPanel: false
+      browser.download.always_ask_before_handling_new_types: true
+      browser.download.manager.addToRecentDocs: false
+      browser.download.open_pdf_attachments_inline: true
+      browser.download.useDownloadDir: false
+      browser.formfill.enable: false
+      browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons: false
+      browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features: false
+      browser.newtabpage.activity-stream.feeds.section.topstories: false
+      browser.newtabpage.activity-stream.feeds.telemetry: false
+      browser.newtabpage.activity-stream.feeds.topsites: false
+      browser.newtabpage.activity-stream.telemetry: false
+      browser.ping-centre.telemetry: false
+      browser.places.speculativeConnect.enabled: false
+      browser.preferences.moreFromMozilla: false
+      browser.privatebrowsing.enable-new-indicator: false
+      browser.privatebrowsing.forceMediaMemoryCache: true
+      browser.privatebrowsing.vpnpromourl: ""
+      browser.safebrowsing.downloads.remote.enabled: false
+      browser.search.separatePrivateDefault.ui.enabled: true
+      browser.search.suggest.enabled: false
+      browser.sessionstore.privacy_level: 2
+      browser.shell.checkDefaultBrowser: false
+      browser.startup.page: 3
+      browser.startup.preXulSkeletonUI: false
+      browser.tabs.crashReporting.sendReport: false
+      browser.tabs.firefox-view: false
+      browser.tabs.loadBookmarksInTabs: true
+      browser.tabs.tabmanager.enabled: false
+      browser.uitour.enabled: false
+      browser.urlbar.speculativeConnect.enabled: false
+      browser.urlbar.suggest.calculator: true
+      browser.urlbar.suggest.engines: false
+      browser.urlbar.suggest.quicksuggest.nonsponsored: false
+      browser.urlbar.suggest.quicksuggest.sponsored: false
+      browser.urlbar.suggest.topsites: false
+      browser.urlbar.unitConversion.enabled: true
+      browser.urlbar.update2.engineAliasRefresh: true
+      browser.xul.error_pages.expert_bad_cert: true
+      captivedetect.canonicalURL: ""
+      content.notify.internval: 100000
+      cookiebanners.service.mode.privateBrowsing: 2
+      cookiebanners.service.mode: 2
+      datareporting.healthreport.uploadEnabled: false
+      datareporting.policy.dataSubmissionEnabled: false
+      default-browser-agent.enabled: false
+      dom.security.https_first: true
+      editor.truncate_user_pastes: false
+      extensions.formautofill.addresses.enabled: false
+      extensions.formautofill.creditCards.enabled: false
+      extensions.formautofill.heuristics.enabled: false
+      extensions.getAddons.showPane: false
+      extensions.htmlaboutaddons.recommendations.enabled: false
+      extensions.pocket.enabled: false
+      extensions.postDownloadThirdPartyPrompt: false
+      findbar.highlightAll: true
+      full-screen-api.transition-duration.enter: "0 0"
+      full-screen-api.transition-duration.leave: "0 0"
+      full-screen-api.warning.delay: -1
+      full-screen-api.warning.timeout: 0
+      general.smoothScroll:                       true
+      geo.provider.ms-windows-location: false
+      geo.provider.network.url: "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%"
+      geo.provider.use_corelocation: false
+      geo.provider.use_geoclue: false
+      geo.provider.use_gpsd: false
+      gfx.canvas.accelerated.cache-items: 32768
+      gfx.canvas.accelerated.cache-size: 4096
+      gfx.canvas.accelerated: true
+      gfx.content.skia-font-cache-size: 80
+      gfx.webrender.all: true
+      gfx.webrender.compositor: true
+      gfx.webrender.precache-shaders: true
+      identity.fxaccounts.enabled: false
+      image.cache.size: 10485760
+      image.mem.decode_bytes_at_a_time: 131072
+      image.mem.shared.unmap.min_expiration_ms: 120000
+      layers.gpu-process.enabled: true
+      layout.css.has-selector.enabled: true
+      layout.css.prefers-color-scheme.content-override: 2
+      media.cache_readahead_limit: 9000
+      media.cache_resume_threshold: 6000
+      media.hardware-video-decoding.enabled: true
+      media.memory_cache_max_size: 1048576
+      media.memory_caches_combined_limit_kb: 2560000
+      media.peerconnection.ice.default_address_only: true
+      media.peerconnection.ice.proxy_only_if_behind_proxy: true
+      middlemouse.contentLoadURL: false
+      mousewheel.default.delta_multiplier_y:      275
+      network.IDN_show_punycode: true
+      network.auth.subresource-http-auth-allow: 1
+      network.buffer.cache.count: 128
+      network.buffer.cache.size: 262144
+      network.captive-portal-service.enabled: false
+      network.connectivity-service.enabled: false
+      network.cookie.cookieBehavior: 1
+      network.dns.disablePrefetch: true
+      network.file.disable_unc_paths: true
+      network.gio.supported-protocols: ""
+      network.http.max-connections: 1800
+      network.http.max-persistent-connections-per-server: 10
+      network.http.referer.XOriginTrimmingPolicy: 2
+      network.http.speculative-parallel-limit: 0
+      network.predictor.enable-prefetch: false
+      network.predictor.enabled: false
+      network.prefetch-next: false
+      network.proxy.socks_remote_dns: true
+      network.ssl_tokens_cache_capacity: 32768
+      nglayout.initialpaint.delay: 0
+      nglayout.initialpaint.delay_in_oopif: 0
+      pdfjs.enableScripting: false
+      permissions.default.desktop-notification: 2
+      permissions.default.geo: 2
+      permissions.delegation.enabled: false
+      permissions.manager.defaultsUrl: ""
+      privacy.donottrackheader.enabled: true
+      privacy.globalprivacycontrol.enabled: true
+      privacy.globalprivacycontrol.functionality.enabled: true
+      privacy.history.custom: true
+      privacy.query_stripping.strip_list: "__hsfp __hssc __hstc __s _hsenc _openstat dclid fbclid gbraid gclid hsCtaTracking igshid mc_eid ml_subscriber ml_subscriber_hash msclkid oft_c oft_ck oft_d oft_id oft_ids oft_k oft_lk oft_sk oly_anon_id oly_enc_id rb_clickid s_cid twclid vero_conv vero_id wbraid wickedid yclid"
+      privacy.userContext.ui.enabled: true
+      security.OCSP.enabled: 0
+      security.cert_pinning.enforcement_level: 2
+      security.insecure_connection_text.enabled: true
+      security.insecure_connection_text.pbmode.enabled: true
+      security.pki.crlite_mode: 2
+      security.remote_settings.crlite_filters.enabled: true
+      security.ssl.treat_unsafe_negotiation_as_broken: true
+      security.tls.enable_0rtt_data: false
+      signon.autofillForms: false
+      signon.formlessCapture.enabled: false
+      signon.privateBrowsingCapture.enabled: false
+      signon.rememberSignons: false
+      toolkit.coverage.opt-out: true
+      toolkit.legacyUserProfileCustomizations.stylesheets: true
+      toolkit.telemetry.archive.enabled: false
+      toolkit.telemetry.bhrPing.enabled: false
+      toolkit.telemetry.coverage.opt-out: true
+      toolkit.telemetry.enabled: false
+      toolkit.telemetry.firstShutdownPing.enabled: false
+      toolkit.telemetry.newProfilePing.enabled: false
+      toolkit.telemetry.server: "data:,"
+      toolkit.telemetry.shutdownPingSender.enabled: false
+      toolkit.telemetry.unified: false
+      toolkit.telemetry.updatePing.enabled: false
+      urlclassifier.features.socialtracking.skipURLs: "*.instagram.com, *.twitter.com, *.twimg.com"
+      urlclassifier.trackingSkipURLs: "*.reddit.com, *.twitter.com, *.twimg.com, *.tiktok.com"
+      webchannel.allowObject.urlWhitelist: ""
+

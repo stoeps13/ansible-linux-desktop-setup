@@ -9,12 +9,10 @@
   with_items:
     - chromium
     - exa
-    - fd
     - flameshot
     - fzf
     - git
     - stow
-    - the_silver_searcher
 
 - name: Include Archlinux related tasks
   ansible.builtin.include_tasks: archlinux.yml
@@ -31,6 +29,12 @@
   when:
     - ansible_os_family == 'Redhat'
 
+- name: Create .ssh folder
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+    mode: "0700"
+
 # Create ssh keys
 - name: Generate an OpenSSH keypair with ed25519
   community.crypto.openssh_keypair:
@@ -40,23 +44,29 @@
     state: present
     regenerate: full_idempotence
     comment: "{{ system_name }}: SSH Key for {{ item }}"
-  notify: print_ssh
+  notify: Copy the new public keys to github and gitlab
   with_items:
     - github
     - gitlab
+
+- name: Copy ssh config
+  ansible.builtin.copy:
+    dest: "{{ ansible_env.HOME }}/.ssh/config"
+    src: config
 
 - name: Clone dotfiles
   ansible.builtin.git:
     repo: "{{ __stow_dotfiles_gitrepo }}"
     dest: "{{ ansible_env.HOME }}/.dotfiles"
+    accept_hostkey: true
 
 # Copy config file to config directory
-- name: Link config with stow
-  ansible.builtin.shell: stow ssh
-  args:
-    chdir: "{{ ansible_env.HOME }}/.dotfiles"
-  register: result
-  changed_when: 'result.stderr is search("LINK: ")'
+# - name: Link config with stow
+#   ansible.builtin.shell: stow ssh
+#   args:
+#     chdir: "{{ ansible_env.HOME }}/.dotfiles"
+#   register: result
+#   changed_when: 'result.stderr is search("LINK: ")'
 
 - name: Add to .zshrc
   ansible.builtin.blockinfile:
